@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import CounterOutput from "./CounterOutput";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IAppProps {}
+
+interface IAppState {
+  counterValue: number;
+}
+
+class App extends React.Component<IAppProps, IAppState> {
+  public state = { counterValue: 0 };
+
+  public render() {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <CounterOutput counter={this.state.counterValue} />
+        <button onClick={this.incHandler}>Increment</button>
+        <button onClick={this.decHandler}>Decrement</button>
+      </div>
+    );
+  }
+
+  private incHandler = () => {
+    this.setState(prevState => {
+      return { counterValue: prevState.counterValue + 1 };
+    });
+  };
+
+  private decHandler = () => {
+    this.setState(prevState => {
+      return { counterValue: prevState.counterValue - 1 };
+    });
+  };
 }
 
 export default App;
